@@ -18,16 +18,10 @@ struct NewsModel: Codable {
 struct Article: Codable {
     let source: Source
     let author: String
-    let title, articleDescription: String
+    let title, description: String
     let url: String
     let urlToImage: String?
     let content: String?
-
-    enum CodingKeys: String, CodingKey {
-        case source, author, title
-        case articleDescription = "description"
-        case url, urlToImage, content
-    }
 }
 
 // MARK: - Source
@@ -40,7 +34,6 @@ struct NewsDataModel {
     var title: String?
     var articleDescription: String?
     var urlToImage: String?
-
 }
 
 

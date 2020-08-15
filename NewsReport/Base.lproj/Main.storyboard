@@ -19,40 +19,40 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="760" id="0fn-9I-at0" customClass="NewsTableViewCell" customModule="NewsReport" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="760"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="604" id="0fn-9I-at0" customClass="NewsTableViewCell" customModule="NewsReport" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="604"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0fn-9I-at0" id="6zv-MG-tDq">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="760"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="604"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tIb-qt-kne">
-                                                    <rect key="frame" x="20" y="8" width="374" height="441"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tIb-qt-kne">
+                                                    <rect key="frame" x="20" y="8" width="374" height="431.5"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XEn-24-aWJ">
-                                                    <rect key="frame" x="20" y="489" width="374" height="20.5"/>
-                                                    <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="20" y="459.5" width="374" height="20.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4xg-ip-Wg9">
-                                                    <rect key="frame" x="20" y="539.5" width="374" height="20.5"/>
-                                                    <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="20" y="500" width="374" height="24"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="4xg-ip-Wg9" firstAttribute="top" secondItem="XEn-24-aWJ" secondAttribute="bottom" constant="30" id="A8n-5A-E15"/>
+                                                <constraint firstItem="4xg-ip-Wg9" firstAttribute="top" secondItem="XEn-24-aWJ" secondAttribute="bottom" constant="20" id="A8n-5A-E15"/>
                                                 <constraint firstItem="4xg-ip-Wg9" firstAttribute="leading" secondItem="6zv-MG-tDq" secondAttribute="leading" constant="20" id="BUN-RC-IXL"/>
                                                 <constraint firstItem="tIb-qt-kne" firstAttribute="width" secondItem="6zv-MG-tDq" secondAttribute="width" multiplier="0.903382" id="Urd-Wm-jvn"/>
                                                 <constraint firstItem="tIb-qt-kne" firstAttribute="centerX" secondItem="6zv-MG-tDq" secondAttribute="centerX" id="VTe-vy-cvM"/>
-                                                <constraint firstItem="XEn-24-aWJ" firstAttribute="top" secondItem="tIb-qt-kne" secondAttribute="bottom" constant="40" id="k7v-RC-nhz"/>
+                                                <constraint firstItem="XEn-24-aWJ" firstAttribute="top" secondItem="tIb-qt-kne" secondAttribute="bottom" constant="20" id="k7v-RC-nhz"/>
                                                 <constraint firstItem="XEn-24-aWJ" firstAttribute="leading" secondItem="6zv-MG-tDq" secondAttribute="leading" constant="20" id="mUk-Kv-Qaj"/>
                                                 <constraint firstAttribute="trailing" secondItem="XEn-24-aWJ" secondAttribute="trailing" constant="20" id="nHM-Jd-xCR"/>
-                                                <constraint firstAttribute="bottom" secondItem="4xg-ip-Wg9" secondAttribute="bottom" constant="200" id="qeF-bz-4Bq"/>
+                                                <constraint firstAttribute="bottom" secondItem="4xg-ip-Wg9" secondAttribute="bottom" constant="80" id="qeF-bz-4Bq"/>
                                                 <constraint firstItem="tIb-qt-kne" firstAttribute="top" secondItem="6zv-MG-tDq" secondAttribute="top" constant="8" id="rQT-rL-Jfx"/>
                                                 <constraint firstAttribute="trailing" secondItem="4xg-ip-Wg9" secondAttribute="trailing" constant="20" id="ymA-Mk-vfl"/>
                                             </constraints>

@@ -8,91 +8,96 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    var newsReport:NewsModel?
-    var fetchedNewsReport:NewsDataModel?
-    
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    var articals = [Article]()
+
     @IBOutlet weak var newsTableView: UITableView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
-        if Reachability.isConnectedToNetwork() {
-            serverCalls()
-        }else {
-//           fetchDataFromDatabase()
-        }
+        newsTableView.allowsSelection = false
+        fetchDataFromDatabase()
     }
-    
-    func serverCalls() {
-        showActivityIndicator(progressLabel: "Fetching Data")
-        WRNetworkManager.getServiceCall() { (newsObject) in
-            self.newsReport = newsObject
-//            print("Fetched Location Weather Report: \(newsObject)")
-            print("News Title : \(newsObject.articles[0].title)")
-            print("News Description : \(newsObject.articles[0].title)")
-            print("News Title : \(newsObject.articles[0].urlToImage)")
-            
-            self.hideActivityIndicator()
-            self.saveAndUpdateNewsReport()
-        }
-        
-    }
-    func saveAndUpdateNewsReport() {
-        DispatchQueue.main.async {
-            
-            var newsModel = NewsDataModel()
-            newsModel.title                 = self.newsReport?.articles[0].title
-            newsModel.articleDescription    = self.newsReport?.articles[0].articleDescription
-            newsModel.urlToImage            = self.newsReport?.articles[0].urlToImage
-        
-            CoreDataHelper.saveDataAndUpdateData(userData: newsModel)
-        }
-    }
-    
-/*
+
+ //MARK: - Fetching from Database
     func fetchDataFromDatabase() {
-        if let dataInfo = CoreDataHelper.fetchWhetherData() {
+        showActivityIndicator(progressLabel: "Fetching Data")
+        if let dataInfo = CoreDataHelper.fetchWhetherData(), dataInfo.count > 0 {
             print("offlineData:\(dataInfo)")
-            self.fetchedNewsReport?.title              = dataInfo.title
-            self.fetchedNewsReport?.urlToImage         = dataInfo.urlToImage
-        }else {
-            print("Offline data not available For Location ")
+            articals = dataInfo
+            self.newsTableView.reloadData()
+        }
+        else {
+            print("Offline data not available, Fetching from Server call and Saving to database")
+            if Reachability.isConnectedToNetwork() {
+                serverCalls()
+            }
         }
     }
- */
-    
-}
 
+    func serverCalls() {
+        
+        WRNetworkManager.getServiceCall() { (newsObject) in
+            
+            print("Fetched Location Weather Report: \(newsObject)")
+            self.saveAndUpdateNewsReport(articals: newsObject.articles)
+        }
 
-//MARK: Table View delegate and datasource methods
+    }
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    //MARK: - Saving Server data to Database
+    func saveAndUpdateNewsReport(articals: [Article]) {
+        DispatchQueue.main.async {
+
+            for news in articals {
+
+                CoreDataHelper.saveDataAndUpdateData(userData: news)
+            }
+            self.fetchDataFromDatabase()
+
+        }
+    }
+
+    //MARK: Table View delegate and datasource methods
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return newsReport?.articles.count ?? 0
+        print(articals.count)
+        return articals.count
+
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = newsTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! NewsTableViewCell
-        cell.newsTitle.text = ("Title: \(newsReport?.articles[indexPath.row].title ?? "")")
-        cell.newsDescription.text = ("Description: \(newsReport?.articles[indexPath.row].articleDescription ?? "")")
 
-        let image = self.newsReport?.articles[indexPath.row].urlToImage
+        let aNews = articals[indexPath.row]
+        cell.newsTitle.text = ("\(aNews.title)")
+        cell.newsDescription.text = ("Details: \(aNews.description)")
 
-        DispatchQueue.global().async {
-            if let url = URL(string: image ?? "") {
-                if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        cell.newsImage.image = image
+        let imageUrlString = aNews.urlToImage
+        print("UrlString:\(String(describing: imageUrlString))")
+
+        if let imageUrl = imageUrlString {
+            cell.newsImage.image = UIImage(named: "")
+            showActivityIndicator(progressLabel: "Loading")
+            DispatchQueue.global().async {
+                if let url = URL(string: imageUrl ) {
+                    if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
+                        DispatchQueue.main.async {
+                            self.hideActivityIndicator()
+                            cell.newsImage.image = image
+                        }
                     }
                 }
             }
+
+        } else {
+            //if url is Nil Loading Default Image
+            cell.newsImage.image = UIImage(named: "internet")
+            self.hideActivityIndicator()
         }
         return cell
     }
@@ -102,5 +107,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return view.frame.height
     }
 
+
 }
+
+
+
+
 

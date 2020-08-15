@@ -6,6 +6,6 @@
         <attribute name="urlToImage" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="News" positionX="-63" positionY="-18" width="128" height="28"/>
+        <element name="News" positionX="-63" positionY="-18" width="128" height="88"/>
     </elements>
 </model>

@@ -14,23 +14,14 @@ class CoreDataHelper {
 
     //MARK: - UserData DB Operations -
 
-    class func saveDataAndUpdateData(userData: NewsDataModel) {
-
-        let NewsInfoEntity: News!
-        let aBatch = fetchWhetherLocationData()
-
-        if let batchObj = aBatch {
-            NewsInfoEntity = batchObj
-        }
-        else {
-            NewsInfoEntity = NSEntityDescription.insertNewObject(forEntityName: String(describing: News.self), into: context) as? News
-        }
-
-        NewsInfoEntity.title                 = userData.title
-        NewsInfoEntity.articleDescription    = userData.articleDescription
-        NewsInfoEntity.urlToImage            = userData.urlToImage
+    class func saveDataAndUpdateData(userData: Article) {
 
 
+        let NewsInfoEntity = NSEntityDescription.insertNewObject(forEntityName: String(describing: News.self), into: context) as? News
+        
+        NewsInfoEntity?.title                 = userData.title
+        NewsInfoEntity?.articleDescription    = userData.description
+        NewsInfoEntity?.urlToImage            = userData.urlToImage
         do {
             try context.save()
 
@@ -41,7 +32,6 @@ class CoreDataHelper {
 
     //Checking if there are any duplicate locations in DB
     class func fetchWhetherLocationData() -> News? {
-
 
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: News.self))
         do {
@@ -58,21 +48,19 @@ class CoreDataHelper {
     }
 
     //Fetching Data from DB
-    class func fetchWhetherData() -> NewsDataModel? {
+    class func fetchWhetherData() -> [Article]? {
 
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: News.self))
         do {
+            var newsModels = [Article]()
             guard let data = try context.fetch(fetchRequest) as? [News] else { return nil }
+            
             for dataInfo in data {
-                var newsData = NewsDataModel()
-                newsData.title                 = dataInfo.title
-                newsData.articleDescription    = dataInfo.articleDescription
-                newsData.urlToImage            = dataInfo.urlToImage
-
-                return newsData
-
+                let source = Source(id: "1", name: "")
+                let newsData = Article(source: source, author: "", title: dataInfo.title ?? "", description: dataInfo.articleDescription ?? "", url: "", urlToImage: dataInfo.urlToImage, content: "")
+                newsModels.append(newsData)
             }
-            return nil
+            return newsModels
         }
         catch let error {
             print("error occured while fetching user data : \(error)")

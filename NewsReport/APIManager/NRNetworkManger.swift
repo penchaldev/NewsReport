@@ -58,11 +58,11 @@ static func getServiceCall(completionHandler:@escaping(NewsModel) -> Void){
                     if let data = responseData, let _ = String(data: data, encoding: .utf8) {
                         do {
                             print("Response data: \(data)")
-                          let weatherResponse = try JSONDecoder().decode(NewsModel.self, from: data)
-//                            print(weatherResponse)
+                          let newsResponse = try JSONDecoder().decode(NewsModel.self, from: data)
+//                            print(newsResponse)
                             
                             DispatchQueue.main.async {
-                                completionHandler(weatherResponse)
+                                completionHandler(newsResponse)
                             }
                         }
                         catch let error {
